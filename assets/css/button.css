@@ -1,0 +1,45 @@
+.btn-primary{
+    @apply  py-3 px-10 text-white bg-primary hover:bg-opacity-95 duration-300
+}
+.btn-secondary{
+    @apply  py-3 px-5 md:px-10 text-white bg-secondary hover:bg-opacity-95 duration-300
+}
+.btn-ternary{
+    @apply  py-3 px-5 md:px-10 text-white bg-gray-500 hover:bg-opacity-95 duration-300
+}
+.btn-primary-sm{
+    @apply  py-1.5 px-5 text-white bg-primary hover:bg-opacity-95 duration-300 rounded-lg
+}
+.btn-secondary-sm{
+    @apply  py-1.5 px-5 text-white bg-secondary hover:bg-opacity-95 duration-300 rounded-lg
+}
+.btn-ternary-sm{
+    @apply  py-1.5 px-5 text-white bg-gray-800 hover:bg-opacity-95 duration-300 rounded-lg
+}
+.btn-danger{
+    @apply  py-2 px-10 text-white bg-red-500 hover:bg-red-600 duration-300
+}
+.btn-disabled{
+    @apply  py-3 px-10 text-white bg-gray-300
+}
+.btn-primary-outline {
+    @apply  py-3 float-right px-5 text-primary border-2 border-primary hover:bg-primary hover:text-white duration-300
+}
+.btn-primary-outline:hover > img {
+    @apply invert brightness-0
+}
+.btn-secondary-outline {
+    @apply  py-3 float-right px-5 text-secondary border-2 border-secondary hover:bg-secondary hover:text-white duration-300
+}
+.btn-ternary-outline {
+    @apply  py-3 float-right px-5 text-gray-800 border-2 border-gray-800 hover:bg-gray-800 hover:text-white duration-300
+}
+.btn-secondary-outline-sm {
+    @apply  py-1.5 float-right px-5 text-secondary border-2 border-secondary hover:bg-opacity-95 hover:text-white duration-300 rounded-lg
+}
+.btn-ternary-outline-sm {
+    @apply  py-1.5 float-right px-5 text-gray-500 border-2 border-gray-500 hover:bg-opacity-95 hover:text-gray-800 duration-300 rounded-lg
+}
+.btn-primary-outline-ico{
+    @apply border-2 border-primary rounded-full px-4 py-1 text-primary  flex gap-1 items-center transition duration-500 hover:bg-primary hover:text-white
+}

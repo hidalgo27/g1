@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*@layer base {*/
+/*    html {*/
+/*        font-family: "Poppins", system-ui, sans-serif;*/
+/*    }*/
+/*}*/
+
+@layer utilities {
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .no-scrollbar::-webkit-scrollbar {
+        display: none;
+    }
+    /* Hide scrollbar for IE, Edge and Firefox */
+    .no-scrollbar {
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+    }
+}
+
+.input-goto {
+    @apply block w-full bg-transparent text-lg rounded-md text-gray-900 placeholder-transparent ring-2 px-4 py-2 ring-gray-300 focus:ring-blue-600 focus:outline-none focus:border-rose-600;
+}
+
+.input-goto-label, .select-goto-label {
+    @apply absolute cursor-text left-4 bg-white px-1 transition-all duration-200 ease-in-out text-sm text-gray-900;
+
+    /* Posición inicial y cuando el input está vacío */
+    @apply peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2;
+
+    /* Cuando el input está enfocado o tiene texto */
+    @apply peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600;
+}
+
+/* Mantener el label flotante cuando el campo tiene texto, incluso sin foco */
+.peer:not(:placeholder-shown) ~ .input-goto-label {
+    @apply -top-3 text-xs ;
+}
+
+
+.select-goto {
+    @apply block w-full bg-transparent text-xs rounded-md text-gray-500 placeholder-transparent ring-1 px-4 py-2 ring-gray-300 focus:ring-blue-600 focus:outline-none focus:border-rose-600 appearance-none;
+}
+
+
+/*.select-goto-label {*/
+/*    @apply absolute cursor-text left-4 bg-white px-1 transition-all duration-200 ease-in-out text-sm text-gray-900;*/
+
+/*    !* Posición inicial y cuando el select está vacío *!*/
+/*    @apply peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500 peer-placeholder-shown:top-2;*/
+
+/*    !* Cuando el select está enfocado o tiene un valor *!*/
+/*    @apply peer-focus:-top-3 peer-focus:text-xs peer-focus:text-blue-600;*/
+/*}*/
+
+/*!* Mantener el label flotante cuando el campo tiene un valor seleccionado *!*/
+/*.peer:not([value=""]) ~ .select-goto-label {*/
+/*    @apply -top-3 text-xs;*/
+/*}*/

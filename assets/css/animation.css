@@ -1,0 +1,131 @@
+.bounceOutUp-enter-active {
+    animation: bounceOutUp-in .5s;
+}
+.bounceOutUp-leave-active {
+    animation: bounceOutUp-in .5s reverse;
+}
+@keyframes bounceOutUp-in {
+    0% {
+        transform: translateY(-50px);
+    }
+    20% {
+    /*opacity: 1;*/
+        transform: translateY(20px);
+    }
+    100% {
+    /*opacity: 0;*/
+        transform: translateY(-10px);
+    }
+}
+
+/* ---------------------------------- */
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity .4s linear;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.pop-enter-active,
+.pop-leave-active {
+    transition: transform 0.4s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.4s linear;
+}
+
+.pop-enter,
+.pop-leave-to {
+    opacity: 0;
+    transform: scale(0.3) translateY(-50%);
+}
+
+.top-enter-active,
+.top-leave-active {
+    transition: transform 0.2s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.2s linear;
+}
+
+.top-enter,
+.top-leave-to {
+    opacity: 0;
+    transform: translateY(-50%) translateY(100%);
+}
+
+.bottom-enter-active,
+.bottom-leave-active {
+    transition: transform 0.2s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.2s linear;
+}
+
+.bottom-enter,
+.bottom-leave-to {
+    opacity: 0;
+    transform: translateY(-50%) translateY(-100%);
+}
+
+.right-enter-active,
+.right-leave-active {
+    transition: transform 0.2s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.2s linear;
+}
+
+.right-enter,
+.right-leave-to {
+    opacity: 0;
+    transform: translateX(-50%) translateX(100%);
+}
+
+.left-enter-active,
+.left-leave-active {
+    transition: transform 0.2s cubic-bezier(0.5, 0, 0.5, 1), opacity 0.2s linear;
+}
+
+.left-enter,
+.left-leave-to {
+    opacity: 0;
+    transform: translateX(50%) translateX(-100%);
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 0.9;
+    }
+    to {
+        opacity: 0.2;
+    }
+}
+.fade-out {
+    animation: fadeOut 1s ease-in-out infinite alternate;
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0.2;
+    }
+    to {
+        opacity: 0.9;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 2s ease-in-out;
+}
+
+@keyframes expand {
+    from {
+        max-height: 0;
+    }
+    to {
+        max-height: 100vh; /* Ajusta esto según la altura máxima que esperas */
+    }
+}
+
+@keyframes collapse {
+    from {
+        max-height: 100vh;
+    }
+    to {
+        max-height: 0;
+    }
+}
+
+.expand-animation {
+    animation-fill-mode: forwards; /* Asegura que la propiedad final se mantenga después de la animación */
+}

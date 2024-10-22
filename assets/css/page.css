@@ -1,0 +1,18 @@
+/*@import "form.css";*/
+@import "button.css";
+@import "modal.css";
+@import "animation.css";
+
+body{
+    @apply bg-[#F4F4FB]
+}
+.stretched-link::after{
+    content: "";
+    @apply z-10 absolute inset-0 pointer-events-auto;
+}
+.vidrio{
+    border-radius: 10px;
+    border: 1px solid #5c5b5b;
+    background: transparent;
+    backdrop-filter: blur(8px);
+}
