@@ -31,7 +31,7 @@ const loading_mail = ref({})
 const view_sum = ref(false)
 
 // Paginación
-const pagination = inquireStore.pagination;
+const pagination = ref([]);
 
 // Definir los filtros
 const defaultFilters = {
@@ -58,6 +58,17 @@ const vendedores = ref([
   { id: 5, nombre: 'Hidalgo', email: 'hidalgochponce@gmail.com' },
   { id: 6, nombre: 'Paul', email: 'paul@gotoperu.com' }
 ]);
+
+// Sincronizar los inquires con el store de Pinia
+watch(() => ({
+  inquires: inquireStore.inquires,
+  totals: inquireStore.totals,
+  pagination: inquireStore.pagination
+}), (newValues) => {
+  inquires.value = newValues.inquires;
+  totals.value = newValues.totals;
+  pagination.value = newValues.pagination
+}, { immediate: true });
 
 const getVendedorNombre = (vendedorId) => {
   // Verificar si vendedorId es nulo, indefinido o vacío
@@ -153,23 +164,24 @@ const changePerPage = async () => {
 };
 
 const nextPage = async () => {
-  console.log(pagination.current_page)
-  if (pagination.current_page < pagination.last_page) {
+
+  if (pagination.value.current_page < pagination.value.last_page) {
     loading.value = true;
-    pagination.current_page += 1;
-    await inquireStore.getInquires(filters.value, pagination.current_page, inquireStore.pagination.per_page);
+    pagination.value.current_page += 1;
+    await inquireStore.getInquires(filters.value, pagination.value.current_page, inquireStore.pagination.per_page);
+    loading.value = false;
+  }
+}
+
+const prevPage = async () => {
+  if (pagination.value.current_page > 1) {
+    loading.value = true;
+    pagination.value.current_page -= 1;
+    await inquireStore.getInquires(filters.value, pagination.value.current_page, inquireStore.pagination.per_page);
     loading.value = false;
   }
 };
 
-const prevPage = async () => {
-  if (pagination.current_page > 1) {
-    loading.value = true;
-    pagination.current_page -= 1;
-    await inquireStore.getInquires(filters.value, pagination.current_page, inquireStore.pagination.per_page);
-    loading.value = false;
-  }
-};
 
 // Aplicar los filtros
 const applyFilters = async () => {
@@ -218,16 +230,7 @@ const file_hover_bg = (val) => {
   file_hover.value = val;
 }
 
-// Sincronizar los inquires con el store de Pinia
-watch(() => ({
-  inquires: inquireStore.inquires,
-  totals: inquireStore.totals,
-  pagination: inquireStore.pagination
-}), (newValues) => {
-  inquires.value = newValues.inquires;
-  totals.value = newValues.totals;
-  pagination.value = newValues.pagination
-}, { immediate: true });
+
 
 // Cargar la primera página cuando el componente se monta
 onMounted(async () => {
@@ -317,17 +320,18 @@ onMounted(async () => {
         </div>
         <!-- Filtros para el usuario -->
         <div class="shadow bg-white rounded-lg p-6 mb-6 grid grid-cols-12 gap-6">
+
           <div class="relative col-span-2">
-            <VDatePicker v-model.range="range_sale_date" mode="date" @update:modelValue="onDateChangeSaleDate">
+            <VDatePicker v-model.range="range_created_date" mode="date" @update:modelValue="onDateChangeCreatedDate">
               <template #default="{ togglePopover }">
                 <button
                     class="select-goto relative text-left"
                     @click="togglePopover"
                 >
 
-                  <span v-if="filters.start_sale_date && filters.end_sale_date">{{ filters.start_sale_date+' to '+filters.end_sale_date }}</span>
+                  <span v-if="filters.created_start && filters.created_end">{{ filters.created_start+' to '+filters.created_end }}</span>
                   <span v-else>Choose range date</span>
-                  <span class="input-goto-label -top-3 !text-xs" >Sale Date</span>
+                  <span class="input-goto-label -top-3 !text-xs" >Inquire Date</span>
 
                 </button>
 
@@ -355,16 +359,16 @@ onMounted(async () => {
 
 
           <div class="relative col-span-2">
-            <VDatePicker v-model.range="range_created_date" mode="date" @update:modelValue="onDateChangeCreatedDate">
+            <VDatePicker v-model.range="range_sale_date" mode="date" @update:modelValue="onDateChangeSaleDate">
               <template #default="{ togglePopover }">
                 <button
                     class="select-goto relative text-left"
                     @click="togglePopover"
                 >
 
-                  <span v-if="filters.created_start && filters.created_end">{{ filters.created_start+' to '+filters.created_end }}</span>
+                  <span v-if="filters.start_sale_date && filters.end_sale_date">{{ filters.start_sale_date+' to '+filters.end_sale_date }}</span>
                   <span v-else>Choose range date</span>
-                  <span class="input-goto-label -top-3 !text-xs" >Created Date</span>
+                  <span class="input-goto-label -top-3 !text-xs" >Sale Date</span>
 
                 </button>
 
