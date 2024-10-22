@@ -34,4 +34,14 @@ export default defineNuxtConfig({
   piniaPluginPersistedstate: {
     storage: 'localStorage',
   },
+  runtimeConfig: {
+    apiSecret: '',
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || "https://api.gotoecuador.com/api",
+      // apiBaseTest: process.env.API_BASE_TEST || "https://app.gotolatam.travel/api",
+      // apiBaseTest: '',
+      // gtmContainerId: process.env.NUXT_PUBLIC_GTM_CONTAINER_ID || '',
+      // apiBase: process.env.API_BASE_TEST || "http://localhost:8080/api",
+    }
+  },
 })

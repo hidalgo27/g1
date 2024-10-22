@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import moment from "moment";
 
 export const useInquireStore = defineStore('InquireStore', () => {
+	const config = useRuntimeConfig()
 	const inquires = ref([]);
 	const pagination = ref({
 		current_page: 1,
@@ -38,7 +39,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 
 		return new Promise(async (resolve, reject) => {
 			try {
-				const res = await fetch(`http://localhost:8000/api/inquires/filter?${queryParams}`, {
+				const res = await fetch(config.public.apiBase+`/inquires/filter?${queryParams}`, {
 					method: 'GET',
 					headers: headers,
 				});
@@ -80,7 +81,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 		};
 
 		try {
-			const response = await fetch(`http://localhost:8000/api/update/inquire/${inquire.id}`, {
+			const response = await fetch(config.public.apiBase+`/update/inquire/${inquire.id}`, {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
@@ -135,7 +136,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 		// console.log(JSON.stringify(objSend));
 
 		try {
-			const res = await fetch("http://localhost:8000/api/send/inquire", {
+			const res = await fetch(config.public.apiBase+"/send/inquire", {
 				method: 'POST',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify(objSend)
