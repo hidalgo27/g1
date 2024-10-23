@@ -56,7 +56,7 @@ const vendedores = ref([
   { id: 3, nombre: 'Karina', email: 'karina@gotoperu.com' },
   { id: 4, nombre: 'Pabel', email: 'pabel@gotoperu.com' },
   { id: 5, nombre: 'Angie', email: 'angie@gotoperu.com' },
-  { id: 5, nombre: 'Paul', email: 'paul@gotoperu.com' }
+  { id: 6, nombre: 'Paul', email: 'paul@gotoperu.com' }
 ]);
 
 // Sincronizar los inquires con el store de Pinia
