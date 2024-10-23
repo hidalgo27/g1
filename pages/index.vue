@@ -51,12 +51,11 @@ const defaultFilters = {
 const filters = ref({ ...defaultFilters });
 
 const vendedores = ref([
-  { id: 1, nombre: 'Joa', email: 'joa@example.com' },
-  { id: 2, nombre: 'Fiorella', email: 'fiorella@example.com' },
-  { id: 3, nombre: 'Edson', email: 'edson@example.com' },
-  { id: 4, nombre: 'Pabel', email: 'pabel@example.com' },
-  { id: 5, nombre: 'Hidalgo', email: 'hidalgochponce@gmail.com' },
-  { id: 6, nombre: 'Paul', email: 'paul@gotoperu.com' }
+  { id: 1, nombre: 'Saira', email: 'sai@gotoperu.com' },
+  { id: 2, nombre: 'Fiorella', email: 'fiorella@gotoperu.com' },
+  { id: 3, nombre: 'Karina', email: 'karina@gotoperu.com' },
+  { id: 4, nombre: 'Pabel', email: 'pabel@gotoperu.com' },
+  { id: 5, nombre: 'Angie', email: 'angie@gotoperu.com' }
 ]);
 
 // Sincronizar los inquires con el store de Pinia
