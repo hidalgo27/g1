@@ -573,7 +573,7 @@ onMounted(async () => {
                           <b>Email :</b> {{ inquire.email }}
                         </div>
                         <div class="">
-                          <b>Phone Number :</b> {{ inquire.telefono }}
+                          <b>Phone Number :</b> {{ inquire.codigo_pais }} {{ inquire.telefono }}
                         </div>
                         <div class="">
                           <b>Device :</b> {{ inquire.device }} / {{ inquire.browser }}
