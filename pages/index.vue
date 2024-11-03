@@ -549,11 +549,14 @@ onMounted(async () => {
                       :distance="6"
                   >
                     <!-- This will be the popover reference (for the events and position) -->
-                    <button class="truncate text-left text-gray-400 w-40 2xl:w-[50rem]">{{ inquire.email }} | {{ inquire.nombre }} | {{ inquire.codigo_pais }} {{ inquire.telefono }} | {{ inquire.hotel }} | {{ inquire.device }} | {{ inquire.pasajeros }} person | {{ inquire.duracion }} days | travel date  {{ inquire.travel_date }} | {{ inquire.comentario }}</button>
+                    <button class="truncate text-left text-gray-400 w-40 2xl:w-[50rem] capitalize">{{ inquire.email }} | {{ inquire.nombre }} | {{ inquire.codigo_pais }} {{ inquire.telefono }} | {{inquire.package}} | {{ inquire.hotel }} | {{ inquire.device }} | {{ inquire.pasajeros }} person | {{ inquire.duracion }} days | travel date  {{ inquire.travel_date }} | {{ inquire.comentario }}</button>
 
                     <!-- This will be the content of the popover -->
                     <template #popper>
                       <div class="p-6 grid grid-cols-2 w-[42rem] gap-2 text-sm">
+                        <div class="">
+                          <b>Package:</b> {{ inquire.package }}
+                        </div>
                         <div class="">
                           <b>Hotel category:</b> {{ inquire.hotel }}
                         </div>
