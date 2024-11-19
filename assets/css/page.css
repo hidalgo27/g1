@@ -4,7 +4,7 @@
 @import "animation.css";
 
 body{
-    @apply bg-[#F4F4FB]
+    @apply bg-gray-300/5
 }
 .stretched-link::after{
     content: "";
@@ -15,4 +15,10 @@ body{
     border: 1px solid #5c5b5b;
     background: transparent;
     backdrop-filter: blur(8px);
+}
+.nav-brand {
+    @apply text-xs ;
+}
+.nav-brand.active {
+    @apply text-sm font-semibold py-2 px-4  border-b-2;
 }

@@ -2,7 +2,7 @@
 
 // import {useStore} from "~/stores/test";
 
-import moment from "moment";
+import moment from "moment-timezone";
 
 const showModal = ref(false)
 
@@ -59,6 +59,29 @@ const vendedores = ref([
   { id: 6, nombre: 'Paul', email: 'paul@gotoperu.com' }
 ]);
 
+const brands = ref([
+  {id:1, nombre:'gotoperu.com', color:'border-pink-500 bg-pink-500/10 text-pink-800'},
+  {id:2, nombre:'machupicchu.company', color:'border-purple-500 bg-purple-500/10 text-purple-800'},
+  {id:3, nombre:'gotoperu.com.mx', color:'border-sky-500 bg-sky-500/10 text-sky-800'},
+  {id:4, nombre:'gotoperu.tours', color:'border-teal-500 bg-teal-500/10 text-teal-800'},
+
+]);
+
+const itemsPerPage = ref([
+  {id:5, page:'5'},
+  {id:10, page:'10'},
+  {id:20, page:'20'},
+  {id:50, page:'50'},
+]);
+
+// Estado para almacenar la fecha y hora en formato Perú
+const currentDateTime = ref('');
+
+// Captura fecha y hora en la zona horaria de Perú
+const captureDateTime = () => {
+  currentDateTime.value = moment().utcOffset('-05:00').format('YYYY-MM-DD HH:mm:ss'); // Formato personalizado
+};
+
 // Sincronizar los inquires con el store de Pinia
 watch(() => ({
   inquires: inquireStore.inquires,
@@ -83,7 +106,7 @@ const getVendedorNombre = (vendedorId) => {
   return vendedor ? vendedor.email : 'Sin Asignar';
 };
 
-const saveInquire = async (inquire, index, toMail) => {
+const saveInquire = async (inquire:any, index:any, toMail:any) => {
   // Inicia el estado de carga para la fila actual
   loadingRows.value[index] = true;
 
@@ -146,7 +169,7 @@ const saveInquire = async (inquire, index, toMail) => {
   }
 };
 
-const sendMail = async (item, toMail) => {
+const sendMail = async (item:any, toMail:any) => {
   loading_mail.value[item.id] = true;
   try {
     const response = await inquireStore.sendInquire(item, toMail);
@@ -196,8 +219,9 @@ const resetFilters = async () => {
   view_sum.value = false;
   filters.value = { ...defaultFilters };  // Crear un nuevo objeto para garantizar que Vue detecte el cambio
   loading.value = true;
-  console.log(filters.value)
-  await inquireStore.getInquires(filters.value, 1, 10);  // Volver a cargar sin filtros
+  filters.value.producto = "gotoperu.com"
+  // console.log(filters.value)
+  await inquireStore.getInquires(filters.value, 1, 20);  // Volver a cargar sin filtros
   loading.value = false;
 };
 
@@ -212,21 +236,25 @@ const attrs = ref([
   }
 ])
 
-const onDateChangeSaleDate = (newRange) => {
+const onDateChangeSaleDate = (newRange:any) => {
   filters.value.start_sale_date = moment(newRange.start).format('YYYY-MM-DD');
   filters.value.end_sale_date = moment(newRange.end).format('YYYY-MM-DD');
 };
-const onDateChangeTravelDate = (newRange) => {
+const onDateChangeTravelDate = (newRange:any) => {
   filters.value.start_travel_date = moment(newRange.start).format('YYYY-MM-DD');
   filters.value.end_travel_date = moment(newRange.end).format('YYYY-MM-DD');
 };
-const onDateChangeCreatedDate = (newRange) => {
+const onDateChangeCreatedDate = (newRange:any) => {
   filters.value.created_start = moment(newRange.start).format('YYYY-MM-DD');
   filters.value.created_end = moment(newRange.end).format('YYYY-MM-DD');
 };
 
+const getBrand = (brand:any) => {
+  filters.value.producto = brand
+  applyFilters()
+};
 
-const file_hover_bg = (val) => {
+const file_hover_bg = (val:any) => {
   file_hover.value = val;
 }
 
@@ -234,8 +262,14 @@ const file_hover_bg = (val) => {
 
 // Cargar la primera página cuando el componente se monta
 onMounted(async () => {
-  console.log("Now: ", moment().format('YYYY-MM-DD HH:mm:ss'));
+  // console.log("Now: ", moment().format('YYYY-MM-DD HH:mm:ss'));
   loading.value = true;
+  filters.value.producto = "gotoperu.com"
+
+  if (pagination.value.per_page) {
+    perPage.value = pagination.value.per_page
+  }
+
   try {
     // Cargar la página guardada en localStorage
     await inquireStore.getInquires(filters.value, inquireStore.pagination.current_page, inquireStore.pagination.per_page);
@@ -259,7 +293,7 @@ onMounted(async () => {
         <div class="flex py-4 first:pt-0 last:pb-0">
           <img class="h-10 w-10 rounded-full" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" />
           <div class="ml-3 overflow-hidden">
-            <p class=" font-semibold text-slate-900">Jorge Enrrique {{pagination.current_page}}</p>
+            <p class=" font-semibold text-slate-900">Jorge Enrrique</p>
             <p class="text-xs text-slate-500 truncate">Ventas</p>
           </div>
         </div>
@@ -288,15 +322,7 @@ onMounted(async () => {
       <div class="flex-1 w-[75%] p-6">
         <h2 class="text-2xl font-bold mb-4">Inquires</h2>
 
-<!--        <div>-->
-<!--          <label for="perPage">Elementos por página:</label>-->
-<!--          <select id="perPage" v-model="perPage" @change="changePerPage">-->
-<!--            <option value="5">5</option>-->
-<!--            <option value="10" selected>10</option>-->
-<!--            <option value="20">20</option>-->
-<!--            <option value="50">50</option>-->
-<!--          </select>-->
-<!--        </div>-->
+<!--        <p>Fecha y hora actuales (Perú): {{ currentDateTime }}</p>-->
 
         <!-- Mostrar un mensaje de carga si los datos están siendo obtenidos -->
         <div v-if="loading">Cargando...</div>
@@ -305,21 +331,21 @@ onMounted(async () => {
         <div v-if="error">{{ error }}</div>
 
         <div class="grid grid-cols-12 gap-6 mb-6" v-show="view_sum">
-          <div class="col-span-4 bg-indigo-100 text-indigo-500  rounded-lg p-6 text-center">
+          <div class="col-span-4 bg-sky-100 text-sky-600  rounded-lg p-6 text-center">
             <p class="text-3xl font-semibold">${{ totals.total_sub_profit }}</p>
-            <p>Potencial profit</p>
+            <p class="text-sky-700 font-semibold">Potencial profit</p>
           </div>
-          <div class="col-span-4 bg-orange-100 text-orange-500  rounded-lg p-6 text-center">
+          <div class="col-span-4 bg-pink-100 text-pink-600  rounded-lg p-6 text-center">
             <p class="text-3xl font-semibold">${{ totals.total_profit }}</p>
-            <p>Total profit</p>
+            <p class="text-pink-700 font-semibold">Total profit</p>
           </div>
-          <div class="col-span-4 bg-cyan-50 text-cyan-500  rounded-lg p-6 text-center">
+          <div class="col-span-4 bg-fuchsia-50 text-fuchsia-600  rounded-lg p-6 text-center">
             <p class="text-3xl font-semibold">${{ totals.total_precio_venta }}</p>
-            <p>Sale price</p>
+            <p class="text-fuchsia-700 font-semibold">Sale price</p>
           </div>
         </div>
         <!-- Filtros para el usuario -->
-        <div class="shadow bg-white rounded-lg p-6 mb-6 grid grid-cols-12 gap-6">
+        <div class=" bg-white border shadow-lg shadow-gray-500/10 border-gray-200 rounded-lg p-6 mb-6 grid grid-cols-12 gap-6">
 
           <div class="relative col-span-2">
             <VDatePicker v-model.range="range_created_date" mode="date" @update:modelValue="onDateChangeCreatedDate">
@@ -376,12 +402,13 @@ onMounted(async () => {
             </VDatePicker>
           </div>
 
-          <div class="relative col-span-2">
+          <div class="relative col-span-2 hidden">
             <select class="select-goto peer" id="product_id" v-model="filters.producto">
-              <option value="" disabled selected hidden>Choose a product</option>
-              <option>gotoperu.com</option>
-              <option>gotoperu.com.mx</option>
-              <option>gotoperu.tours</option>
+              <option value="" disabled selected >Choose a product</option>
+              <option v-for="brand in brands">{{ brand.nombre }}</option>
+<!--              <option>gotoperu.com.mx</option>-->
+<!--              <option>gotoperu.tours</option>-->
+<!--              <option>machupicchu.company</option>-->
               <!-- Más opciones -->
             </select>
             <label class="input-goto-label" for="product_id">Product</label>
@@ -470,11 +497,18 @@ onMounted(async () => {
           </div>
 
         </div>
-        <div class="text-right text-gray-700 italic mb-2 cursor-pointer" @click="view_sale_columns = !view_sale_columns">
-          View price columns
+
+
+        <div class="flex justify-between items-center">
+          <div class="flex gap-3">
+            <button type="button" @click="getBrand(brand.nombre)" class="nav-brand transition duration-300" :class="[filters.producto === brand.nombre ? brand.color+' active' : '']" v-for="brand in brands">{{ brand.nombre }}</button>
+          </div>
+          <div class="text-right text-sm text-gray-700 italic cursor-pointer" @click="view_sale_columns = !view_sale_columns">
+            View price columns
+          </div>
         </div>
 
-        <div class="shadow-lg bg-white rounded-lg overflow-x-auto py-6 px-2">
+        <div class="border border-gray-200 shadow-lg shadow-gray-500/10 bg-white rounded-lg rounded-tl-none overflow-x-auto py-6 px-2">
 
           <div class="inline-block min-w-full  rounded-lg overflow-hidden">
 
@@ -531,8 +565,10 @@ onMounted(async () => {
               <tr v-for="(inquire, index) in inquires" :key="index" class="group relative hover:bg-violet-50" >
 
                 <td class="px-3 py-3 border-b border-gray-200 w-16">
-                  <p class="text-gray-400 italic whitespace-no-wrap text-xs  ">
-                    {{ moment(inquire.created_at).format('YYYY-MM-DD') }}
+                  <p class="text-gray-400 italic whitespace-no-wrap text-xs">
+                    <span v-if="inquire.inquire_date">{{ moment(inquire.inquire_date).format('DD-MMM-YYYY HH:mm:ss') }}</span>
+                    <span v-else>{{ moment(inquire.created_at).format('YYYY-MM-DD') }}</span>
+<!--                    <span v-if="inquire.inquire_date">{{ inquire.inquire_date }}</span>-->
                   </p>
                 </td>
                 <td class="px-3 py-3 border-b border-gray-200 w-20 2xl:w-28 text-xs">
@@ -568,7 +604,7 @@ onMounted(async () => {
                           <b>Trip length :</b> {{ inquire.duracion }}
                         </div>
                         <div class="">
-                          <b>Travel Date :</b> {{ inquire.travel_date }}
+                          <b>Travel Date :</b> {{ moment(inquire.travel_date).format('DD MMM YYYY') }}
                         </div>
                         <div class="">
                           <b>Full name :</b> {{ inquire.nombre }}
@@ -745,6 +781,12 @@ onMounted(async () => {
 
               </tbody>
             </table>
+            <div class="text-center my-2 text-sm">
+              <label for="perPage">Items per page:</label>
+              <select id="perPage" v-model="perPage" @change="changePerPage">
+                <option :value="items.page" v-for="items in itemsPerPage">{{items.page}}</option>
+              </select>
+            </div>
             <div class="px-3 py-3 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between" v-if="pagination.total > 0">
               <p class="text-xs xs:text-xs text-gray-900">
                 Showing {{ pagination.current_page }} to {{ pagination.last_page }} of {{ pagination.total }} Entries

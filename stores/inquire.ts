@@ -7,7 +7,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 	const inquires = ref([]);
 	const pagination = ref({
 		current_page: 1,
-		per_page: 10,
+		per_page: 20,
 		total: 0,
 		last_page: 0,
 	});
@@ -17,7 +17,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 
 
 
-	const buildQueryParams = (params) => {
+	const buildQueryParams = (params:any) => {
 		const query = new URLSearchParams();
 		for (const key in params) {
 			if (params[key]) {
@@ -27,7 +27,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 		return query.toString();
 	};
 
-	const getInquires = async (filters = {}, page = 1, perPage = 10) => {
+	const getInquires = async (filters = {}, page = 1, perPage = 20) => {
 		let headers = new Headers();
 		headers.append('Content-Type', 'application/json');
 
@@ -57,7 +57,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 				} else {
 					reject('No data found');
 				}
-			} catch (error) {
+			} catch (error:any) {
 				error.value = 'Error fetching inquires: ' + error.message;
 				reject(error);
 			} finally {
@@ -66,7 +66,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 		});
 	};
 
-	const updateInquire = async (inquire) => {
+	const updateInquire = async (inquire:any) => {
 		const body = {
 			precio_inicial: inquire.precio_inicial,
 			precio_venta: inquire.precio_venta,
@@ -149,7 +149,7 @@ export const useInquireStore = defineStore('InquireStore', () => {
 
 			const data = await res.json();
 			return data; // Si todo sale bien, retorna la data
-		} catch (error) {
+		} catch (error:any) {
 			// Maneja cualquier error que ocurra en la solicitud
 			throw new Error(`Error enviando inquiry: ${error.message}`);
 		}
