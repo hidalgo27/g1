@@ -61,8 +61,9 @@ const vendedores = ref([
 
 const brands = ref([
   {id:1, nombre:'gotoperu.com', color:'border-pink-500 bg-pink-500/10 text-pink-800'},
-  {id:2, nombre:'machupicchu.company', color:'border-purple-500 bg-purple-500/10 text-purple-800'},
-  {id:3, nombre:'gotoperu.com.mx', color:'border-sky-500 bg-sky-500/10 text-sky-800'},
+  {id:2, nombre:'gotolatam.com', color:'border-orange-500 bg-orange-500/10 text-orange-800'},
+  {id:3, nombre:'machupicchu.company', color:'border-purple-500 bg-purple-500/10 text-purple-800'},
+  // {id:4, nombre:'gotoperu.com.mx', color:'border-sky-500 bg-sky-500/10 text-sky-800'},
   {id:4, nombre:'gotoperu.tours', color:'border-teal-500 bg-teal-500/10 text-teal-800'},
 
 ]);
@@ -417,7 +418,7 @@ onMounted(async () => {
           <div class="relative col-span-2">
             <select class="select-goto peer" id="device_id" v-model="filters.device">
               <option value="" disabled selected hidden>Choose a device</option>
-              <option>mobile</option>
+              <option>móvil</option>
               <option>desktop</option>
             </select>
             <label class="input-goto-label" for="device_id">Device</label>
