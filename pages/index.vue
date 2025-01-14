@@ -65,6 +65,7 @@ const brands = ref([
   {id:3, nombre:'machupicchu.company', color:'border-purple-500 bg-purple-500/10 text-purple-800'},
   // {id:4, nombre:'gotoperu.com.mx', color:'border-sky-500 bg-sky-500/10 text-sky-800'},
   {id:4, nombre:'gotoperu.tours', color:'border-teal-500 bg-teal-500/10 text-teal-800'},
+  {id:5, nombre:'gotoperu.co', color:'border-sky-500 bg-teal-500/10 text-teal-800'},
 
 ]);
 
@@ -73,6 +74,7 @@ const itemsPerPage = ref([
   {id:10, page:'10'},
   {id:20, page:'20'},
   {id:50, page:'50'},
+  {id:100, page:'100'},
 ]);
 
 // Estado para almacenar la fecha y hora en formato Perú
