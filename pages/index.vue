@@ -65,7 +65,8 @@ const brands = ref([
   {id:3, nombre:'machupicchu.company', color:'border-purple-500 bg-purple-500/10 text-purple-800'},
   // {id:4, nombre:'gotoperu.com.mx', color:'border-sky-500 bg-sky-500/10 text-sky-800'},
   {id:4, nombre:'gotoperu.tours', color:'border-teal-500 bg-teal-500/10 text-teal-800'},
-  {id:5, nombre:'gotoperu.co', color:'border-sky-500 bg-teal-500/10 text-teal-800'},
+  {id:5, nombre:'gotoperu.co', color:'border-sky-500 bg-sky-500/10 text-sky-800'},
+  {id:6, nombre:'gotoecuador.com', color:'border-red-500 bg-red-500/10 text-red-800'},
 
 ]);
 
@@ -96,7 +97,7 @@ watch(() => ({
   pagination.value = newValues.pagination
 }, { immediate: true });
 
-const getVendedorNombre = (vendedorId) => {
+const getVendedorNombre = (vendedorId:any) => {
   // Verificar si vendedorId es nulo, indefinido o vacío
   if (!vendedorId) {
     return 'Sin Asignar'; // Si el vendedorId está vacío o es nulo, retornamos "Sin Asignar"
