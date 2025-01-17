@@ -56,7 +56,10 @@ const vendedores = ref([
   { id: 3, nombre: 'Karina', email: 'karina@gotoperu.com' },
   { id: 4, nombre: 'Pabel', email: 'pabel@gotoperu.com' },
   { id: 5, nombre: 'Angie', email: 'angie@gotoperu.com' },
-  { id: 6, nombre: 'Paul', email: 'paul@gotoperu.com' }
+  { id: 6, nombre: 'Paul', email: 'paul@gotoperu.com' },
+  { id: 7, nombre: 'Afdel', email: 'afdel@gotolatam.com' },
+  { id: 8, nombre: 'Josep', email: 'josep@gotolatam.com' },
+  { id: 9, nombre: 'Yhon', email: 'yhon@gotolatam.com' }
 ]);
 
 const brands = ref([
