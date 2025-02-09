@@ -75,7 +75,8 @@ const brands = ref([
   {id:4, nombre:'gotoperu.tours', color:'border-teal-500 bg-teal-500/10 text-teal-800'},
   {id:5, nombre:'gotoperu.co', color:'border-sky-500 bg-sky-500/10 text-sky-800'},
   {id:6, nombre:'gotoecuador.com', color:'border-red-500 bg-red-500/10 text-red-800'},
-  {id:7, nombre:'gotoperu.travel', color:'border-emerald-500 bg-emerald-500/10 text-emerald-800'}
+  {id:7, nombre:'gotoperu.travel', color:'border-emerald-500 bg-emerald-500/10 text-emerald-800'},
+  {id:8, nombre:'gotolatam.travel', color:'border-fuchsia-500 bg-fuchsia-500/10 text-fuchsia-800'}
 
 ]);
 
