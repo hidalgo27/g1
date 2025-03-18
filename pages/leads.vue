@@ -2,6 +2,10 @@
 
 // import {useStore} from "~/stores/test";
 
+definePageMeta({
+  middleware: 'auth',
+});
+
 import moment from "moment-timezone";
 
 const showModal = ref(false)
